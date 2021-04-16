@@ -5,9 +5,9 @@
 
         <li 
             class="grid__unit"
-            v-for="commit in fullCommitData"
-            :key="commit"
-            :value="commit"
+            v-for="(commit, date) in fullCommitData"
+            :key="date"
+            :value="date"
             :class="colorRange(commit)"
             >
         </li>
@@ -27,8 +27,6 @@ export default {
         return {
             months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             dayInMs: 86400000,
-            firstDayInMs: 1562457600000, // deduced from picture : a monday 1st of july, there's one in 2019, so it probably begin the 30 june 2019 ***** NO > one week later, it begin on the 7th of july
-            lastDayInMs: 1594512000000, // deduced from picture : a saturday in the first week of july, one year later, in 2020, must be the 4 july 2020 ***** NO > one week later, so 13th of july
             jsonCommitData: commitData,
             fullCommitData: {}
         }
@@ -36,11 +34,17 @@ export default {
     methods: {
         loadFullCommitData () {
             let i;
-            for (i = this.firstDayInMs; i < this.lastDayInMs; i += this.dayInMs) {
+            // eslint-disable-next-line no-unused-vars
+            let firstDay = this.getLastSunday(this.jsonCommitData);
+            // eslint-disable-next-line no-unused-vars
+            let lastDay = this.getNextSaturday(this.jsonCommitData);
+            for (i = firstDay; i <= lastDay; i += this.dayInMs) {
                 // eslint-disable-next-line no-unused-vars
                 let j = this.formatDate(i);
                 if (!(this.formatDate(i) in this.jsonCommitData)) { // if date doesn't already exist
-                    this.fullCommitData[j] = 0;
+                    this.formatDate(i) < this.getOldestCommitDate(this.jsonCommitData) || this.formatDate(i) > this.getLatestCommitDate(this.jsonCommitData) ?
+                        this.fullCommitData[j] = -1 :
+                        this.fullCommitData[j] = 0;
                 } else { // if date already exist
                     this.fullCommitData[j] = this.jsonCommitData[j]; 
                 }
@@ -58,6 +62,30 @@ export default {
                 day = '0' + day;
             return [year, month, day].join('-');
         },
+        unformatDate(date) {
+            let d = new Date(date),
+                timestamp = d.getTime();
+            return timestamp;
+        },
+        getOldestCommitDate(date) {
+            return Object.keys(date).reduce((r, o) => o < r ? o : r)
+        },
+        getLatestCommitDate(date) {
+            return Object.keys(date).reduce((r, o) => o > r ? o : r)
+        },
+        getLastSunday(date) {
+            date = this.getOldestCommitDate(date);
+            let d = new Date(date),
+                lastSunday = this.formatDate(d.setDate(d.getDate()-d.getDay()));
+            return this.unformatDate(lastSunday);
+        },
+        getNextSaturday(date) {
+            date = this.getLatestCommitDate(date);
+            let d = new Date(date),
+                nextSaturday = this.formatDate(d.setDate(d.getDate()+d.getDay(6)));
+                console.log(nextSaturday)
+            return this.unformatDate(nextSaturday);
+        },
         colorRange(nbCommit) {
             switch (true) {
                 case nbCommit >= 30 :
@@ -72,7 +100,6 @@ export default {
                     return 'grid__unit--commitColor_0';
                 case nbCommit < 0 :
                     return 'grid__unit--commitColor_5';
-                    
             }
         }
     },
