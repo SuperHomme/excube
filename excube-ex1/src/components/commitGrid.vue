@@ -27,8 +27,8 @@ export default {
         return {
             months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             dayInMs: 86400000,
-            firstDayInMs: 1561899435000, // deduced from picture : a monday 1st of july, there's one in 2019, so it probably begin the 30 june 2019
-            lastDayInMs: 1593868655000, // deduced from picture : a saturday in the first week of july, one year later, in 2020, must be the 4 july 2020
+            firstDayInMs: 1562457600000, // deduced from picture : a monday 1st of july, there's one in 2019, so it probably begin the 30 june 2019 ***** NO > one week later, it begin on the 7th of july
+            lastDayInMs: 1594512000000, // deduced from picture : a saturday in the first week of july, one year later, in 2020, must be the 4 july 2020 ***** NO > one week later, so 13th of july
             jsonCommitData: commitData,
             fullCommitData: {}
         }
