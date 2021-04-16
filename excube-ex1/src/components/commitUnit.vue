@@ -1,8 +1,7 @@
 <template>
-<div>
+<li>
 
-
-</div>   
+</li>   
 </template>
 
 <script>
@@ -12,6 +11,10 @@ export default {
 }
 </script>
 
-<style lang="sass">
-
+<style lang="sass" scoped>
+li  
+    list-style: none
+    background-color: #ededed
+    width: 11px
+    height: 11px
 </style>

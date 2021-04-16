@@ -72,10 +72,4 @@ export default {
 
 #app p, ul
   text-align: left
-
-$commitColor_0: #ededed
-$commitColor_1: #acd6f2
-$commitColor_2: #7fa8c9
-$commitColor_3: #527ba0
-$commitColor_4: #264e77
 </style>
