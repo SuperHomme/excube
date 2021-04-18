@@ -1,1 +1,1 @@
-# visual & functionnalitie imitations of GitHub's commits board #
+# visual & features imitations of GitHub's commits board #
