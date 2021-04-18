@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <img width="500px" src="./assets/logo_augmentedciso.png" />
+    <img width="300px" src="./assets/logo_augmentedciso.png" />
     <p>
       Votre objectif: développer un composant permettant de représenter une
       matrice comme celle ci-dessous.
     </p>
-    <img width="1000px" src="./assets/gitlab.png" />
+    <img width="725px" src="./assets/gitlab.png" />
 
     <hr />
 
@@ -63,11 +63,11 @@ export default {
 
 <style lang="sass">
 #app
-  font-family: "Avenir", Helvetica, Arial, sans-serif
+  font-family: Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
   text-align: center
-  color: #2c3e50
+  color: #808080
   margin-top: 60px
 
 #app p, ul
